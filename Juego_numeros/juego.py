@@ -1,36 +1,17 @@
-def generar_permutaciones(enteros, actual=0):
-    if actual == len(enteros) - 1:
-        return [[x] for x in enteros]
-    
-    resultados = []
-    for i in range(actual, len(enteros)):
-        enteros[actual], enteros[i] = enteros[i], enteros[actual]
-        subpermutaciones = generar_permutaciones(enteros, actual + 1)
-        for subpermutacion in subpermutaciones:
-            resultados.append([enteros[actual]] + subpermutacion)
-        enteros[actual], enteros[i] = enteros[i], enteros[actual]
-    
-    return resultados
+import sys
 
-def obtener_numero_mas_grande(enteros):
-    permutaciones = generar_permutaciones(enteros)
-    max_numero = 0
-    for perm in permutaciones:
-        numero = int(''.join(map(str, perm)))
-        max_numero = max(max_numero, numero)
-    return max_numero
+def numero_mas_grande(numeros):
+    numeros.sort(key=lambda x: str(x)*10, reverse=True)
+    numero_mas_grande = ''.join(map(str, numeros))
+    return int(numero_mas_grande)
 
 def main():
     while True:
-        n = int(input())
+        n = int(sys.stdin.readline().strip())
         if n == 0:
             break
-
-        enteros = list(map(int, input().split()))
-        resultado = obtener_numero_mas_grande(enteros)
+        numeros = list(map(int, sys.stdin.readline().split()))
+        resultado = numero_mas_grande(numeros)
         print(resultado)
 
-if __name__ == "__main__":
-    main()
-
-
+main()
