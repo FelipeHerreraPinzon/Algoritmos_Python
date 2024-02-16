@@ -1,20 +1,30 @@
-def contar_acarreos(num1, num2):
-    acarreo = 0
-    carry_count = 0
+import sys
 
+def contar_acarreos(num1, num2):
+    
+    carry_count = 0
     while num1 > 0 or num2 > 0:
-        suma = num1 % 10 + num2 % 10 + acarreo
-        acarreo = suma // 10
-        if acarreo > 0:
-            carry_count += 1
+        digit1 = num1 % 10
+        digit2 = num2 % 10
+        sum_digits = digit1 + digit2 + carry_count
+        carry_count = sum_digits // 10
         num1 //= 10
         num2 //= 10
 
     return carry_count
 
 def main():
+    """Reads two numbers, calculates the number of carries, and prints the result."""
+
     while True:
-        num1, num2 = map(int, input().split())
+        try:
+            num1_str, num2_str = input().split()
+            num1 = int(num1_str)
+            num2 = int(num2_str)
+        except ValueError:
+            print("Invalid input. Please enter two integers.")
+            continue
+
         if num1 == 0 and num2 == 0:
             break
 
@@ -25,4 +35,5 @@ def main():
         else:
             print(f"Lleva {carry_count} operacion{'es' if carry_count > 1 else ''}.")
 
-    main()
+
+main()

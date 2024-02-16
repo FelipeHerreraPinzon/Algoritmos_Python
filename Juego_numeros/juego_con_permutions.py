@@ -17,5 +17,5 @@ def main():
         resultado = obtener_numero_mas_grande(enteros)
         print(resultado)
 
-if __name__ == "__main__":
-    main()
+
+main()
