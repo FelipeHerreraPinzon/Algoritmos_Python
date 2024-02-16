@@ -1,23 +1,25 @@
-def calculate_min_distance(relatives):
-    relatives.sort()  # Ordena las calles donde viven los parientes
-    median = relatives[len(relatives) // 2]  # Calcula la mediana de las calles
+import sys
 
-    # Calcula la suma mínima de distancias desde la casa óptima hasta cada pariente
-    total_distance = sum(abs(x - median) for x in relatives)
+def calcular_suma_distancias(parientes):
+    parientes.sort()
+    n = len(parientes)
+    distancia_minima = float('inf')
 
-    return total_distance
+    # Calcula la distancia mínima desde la ubicación de la casa de Vito a cada pariente
+    for i in range(n):
+        suma_distancias = sum(abs(pariente - parientes[i]) for pariente in parientes)
+        distancia_minima = min(distancia_minima, suma_distancias)
+
+    return distancia_minima
 
 def main():
-    # Lee el número de casos de prueba
-    num_cases = int(input())
+    casos_prueba = int(sys.stdin.readline().strip())
+    for _ in range(casos_prueba):
+        entrada = sys.stdin.readline().split()
+        num_parientes = int(entrada[0])
+        ubicaciones_parientes = list(map(int, entrada[1:]))
+        resultado = calcular_suma_distancias(ubicaciones_parientes)
+        print(resultado)
 
-    for _ in range(num_cases):
-        # Lee el número de parientes y las calles donde viven
-        num_relatives, *relative_streets = map(int, input().split())
+main()
 
-        # Calcula y muestra la suma mínima de distancias para el caso actual
-        result = calculate_min_distance(relative_streets)
-        print(result)
-
-if __name__ == "__main__":
-    main()
