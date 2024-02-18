@@ -1,33 +1,29 @@
-def maxima_altura_edificio(pisos):
-    max_altura = 0
-    altura_actual = 0
-    color_anterior = None
+import sys
+
+def max_edificio(pisos):
+ 
+    azules = 0
+    rojos = 0
+    
+    pisos.sort(key=abs, reverse=True)
     
     for piso in pisos:
-        if (piso > 0 and color_anterior != 'azul') or (piso < 0 and color_anterior != 'rojo'):
-            altura_actual = 0
-        
-        if piso > 0:
-            color_actual = 'azul'
-        else:
-            color_actual = 'rojo'
-        
-        if color_actual != color_anterior:
-            altura_actual = 0
-        
-        altura_actual += 1
-        max_altura = max(max_altura, altura_actual)
-        
-        color_anterior = color_actual
+        if piso > 0:  # Azul
+            if rojos == azules:
+                azules += 1
+        else:  # Rojo
+            if azules == rojos + 1:
+                rojos += 1
     
-    return max_altura
+    return azules + rojos
 
 def main():
-    casos = int(input().strip())
+    casos = int(sys.stdin.readline().strip())
     for _ in range(casos):
-        num_pisos = int(input().strip()) 
-        pisos = [int(input().strip()) for _ in range(num_pisos)]
-        print(maxima_altura_edificio(pisos))  
+        num_pisos = int(sys.stdin.readline().strip())
+        pisos = [int(sys.stdin.readline().strip()) for _ in range(num_pisos)]
+        resultado = max_edificio(pisos)
+        print(resultado)
 
 if __name__ == "__main__":
     main()
